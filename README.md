@@ -16,9 +16,15 @@ across a set of segw. in this case, there are 3 serving segw implemented on Noki
 
 ![the diagram shows the idea](./pictures/scpy.png)
 
-there's also an instance of Nokia SRL, used in this case as Datacenter Gateway. 
-the SCPY node at startup configures proxy-arp in all its interfaces. 
-the SCPY node performs destination MAC-Address swap for each packet belonging to a tunnel.
+There's also an instance of Nokia SRL, used in this case as Datacenter Gateway. 
+The SCPY node at startup configures proxy-arp in all its interfaces. 
+Then the SCPY node performs some functions: 
+1. filters the packet with a BFP filter inside the sniff scapy primitive  
+2. the filters takes all isakmp or esp packets from/to set of segws
+3. segw1-2-3 are configured all the same, exactly the same. 
+4. packets are then passed to a packet manager function that provides for mac-swap 
+5. tunnels and their destination are tracked with a dict() hash table. 
+
 Eventually, you will end up with SEGW1-2-3 loaded with tunnels in a round-robin way as:  
 
 ```
