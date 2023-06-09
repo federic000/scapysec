@@ -22,7 +22,7 @@ The SCPY node at startup configures proxy-arp in all its interfaces.
 Then the SCPY node performs some functions: 
 1. filters the packet with a BFP filter inside the sniff scapy primitive  
 2. the BPF filter takes isakmp or esp traffic coming from/to set of segws and passes it to the packet manager
-3. segw1-2-3 are configured all the same, exactly the same, but they can't see each other in the L2 domain (becase SCPY interfaces are not bridged) 
+3. segw1-2-3 are configured all the same as said above, but they can't see each other in the L2 domain (because SCPY interfaces are NOT bridged) 
 4. packets are now passed to a packet manager function that provides for mac-swap and packet forward on a proper interface
 5. tunnels and their destination are tracked with a dict() hash table
 
