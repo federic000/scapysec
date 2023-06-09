@@ -30,7 +30,7 @@ topology:
       kind: linux
       image: federic0/fedepine
       binds:
-       - /root/scapysec2/:/home/
+       - /root/scapysec/:/home/
       exec: 
        - sh /home/tools/startup.sh    
  
