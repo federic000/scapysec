@@ -20,10 +20,10 @@ There's also an instance of Nokia SRL, used in this case as Datacenter Gateway.
 The SCPY node at startup configures proxy-arp in all its interfaces. 
 Then the SCPY node performs some functions: 
 1. filters the packet with a BFP filter inside the sniff scapy primitive  
-2. the filters takes all isakmp or esp packets from/to set of segws
+2. the BPF filter takes isakmp or esp traffic coming from/to set of segws and passes it to the packet manager
 3. segw1-2-3 are configured all the same, exactly the same. 
-4. packets are then passed to a packet manager function that provides for mac-swap 
-5. tunnels and their destination are tracked with a dict() hash table. 
+4. packets are now passed to a packet manager function that provides for mac-swap and packet forward on a proper interface
+5. tunnels and their destination are tracked with a dict() hash table
 
 Eventually, you will end up with SEGW1-2-3 loaded with tunnels in a round-robin way as:  
 
