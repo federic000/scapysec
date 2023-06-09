@@ -1,0 +1,43 @@
+#topology documentation: http://containerlab.dev/lab-examples
+name: scapysec2
+
+topology:
+  nodes:
+    DCGW:
+      kind: srl
+      image: ghcr.io/nokia/srlinux
+    SEGW0:
+      kind: vr-sros
+      image: vrnetlab/vr-sros:23.3.R3
+      type: sr-1e
+      license: license-sros23.txt
+    SEGW1:
+      kind: vr-sros
+      image: vrnetlab/vr-sros:23.3.R3
+      type: sr-1e
+      license: license-sros23.txt
+    SEGW2:
+      kind: vr-sros
+      image: vrnetlab/vr-sros:23.3.R3
+      type: sr-1e
+      license: license-sros23.txt
+    SEGW3:
+      kind: vr-sros
+      image: vrnetlab/vr-sros:23.3.R3
+      type: sr-1e
+      license: license-sros23.txt
+    SCPY:
+      kind: linux
+      image: federic0/fedepine
+      binds:
+       - /root/scapysec2/:/home/
+      exec: 
+       - sh /home/tools/startup.sh    
+ 
+  links:
+    - endpoints: ["SEGW0:eth1", "DCGW:e1-2"]
+    - endpoints: ["SCPY:eth1", "DCGW:e1-1"]
+    - endpoints: ["SCPY:eth2", "SEGW1:eth1"]
+    - endpoints: ["SCPY:eth3", "SEGW2:eth1"]
+    - endpoints: ["SCPY:eth4", "SEGW3:eth1"]
+

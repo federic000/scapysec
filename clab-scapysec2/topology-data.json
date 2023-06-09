@@ -1,0 +1,255 @@
+{
+  "name": "scapysec2",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "clab",
+      "mgmt": {
+        "network": "clab",
+        "bridge": "br-8f1d7a3d1a3a",
+        "ipv4-subnet": "172.20.20.0/24",
+        "ipv4-gw": "172.20.20.1",
+        "ipv6-subnet": "2001:172:20:20::/64",
+        "ipv6-gw": "2001:172:20:20::1",
+        "mtu": "1500",
+        "external-access": true
+      }
+    }
+  },
+  "nodes": {
+    "DCGW": {
+      "index": "0",
+      "shortname": "DCGW",
+      "longname": "clab-scapysec2-DCGW",
+      "fqdn": "DCGW.scapysec2.io",
+      "group": "",
+      "labdir": "/root/scapysec2/clab-scapysec2/DCGW",
+      "kind": "srl",
+      "image": "ghcr.io/nokia/srlinux",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.2",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::2",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-8f1d7a3d1a3a",
+        "clab-node-group": "",
+        "clab-node-kind": "srl",
+        "clab-node-lab-dir": "/root/scapysec2/clab-scapysec2/DCGW",
+        "clab-node-name": "DCGW",
+        "clab-node-type": "ixrd2",
+        "clab-topo-file": "/root/scapysec2/scapysec_4.clab.yml",
+        "containerlab": "scapysec2"
+      }
+    },
+    "SCPY": {
+      "index": "1",
+      "shortname": "SCPY",
+      "longname": "clab-scapysec2-SCPY",
+      "fqdn": "SCPY.scapysec2.io",
+      "group": "",
+      "labdir": "/root/scapysec2/clab-scapysec2/SCPY",
+      "kind": "linux",
+      "image": "federic0/fedepine",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.3",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::3",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-8f1d7a3d1a3a",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/root/scapysec2/clab-scapysec2/SCPY",
+        "clab-node-name": "SCPY",
+        "clab-node-type": "",
+        "clab-topo-file": "/root/scapysec2/scapysec_4.clab.yml",
+        "containerlab": "scapysec2"
+      }
+    },
+    "SEGW0": {
+      "index": "2",
+      "shortname": "SEGW0",
+      "longname": "clab-scapysec2-SEGW0",
+      "fqdn": "SEGW0.scapysec2.io",
+      "group": "",
+      "labdir": "/root/scapysec2/clab-scapysec2/SEGW0",
+      "kind": "vr-sros",
+      "image": "vrnetlab/vr-sros:23.3.R3",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.5",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::5",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-8f1d7a3d1a3a",
+        "clab-node-group": "",
+        "clab-node-kind": "vr-sros",
+        "clab-node-lab-dir": "/root/scapysec2/clab-scapysec2/SEGW0",
+        "clab-node-name": "SEGW0",
+        "clab-node-type": "sr-1e",
+        "clab-topo-file": "/root/scapysec2/scapysec_4.clab.yml",
+        "containerlab": "scapysec2"
+      }
+    },
+    "SEGW1": {
+      "index": "3",
+      "shortname": "SEGW1",
+      "longname": "clab-scapysec2-SEGW1",
+      "fqdn": "SEGW1.scapysec2.io",
+      "group": "",
+      "labdir": "/root/scapysec2/clab-scapysec2/SEGW1",
+      "kind": "vr-sros",
+      "image": "vrnetlab/vr-sros:23.3.R3",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.6",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::6",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-8f1d7a3d1a3a",
+        "clab-node-group": "",
+        "clab-node-kind": "vr-sros",
+        "clab-node-lab-dir": "/root/scapysec2/clab-scapysec2/SEGW1",
+        "clab-node-name": "SEGW1",
+        "clab-node-type": "sr-1e",
+        "clab-topo-file": "/root/scapysec2/scapysec_4.clab.yml",
+        "containerlab": "scapysec2"
+      }
+    },
+    "SEGW2": {
+      "index": "4",
+      "shortname": "SEGW2",
+      "longname": "clab-scapysec2-SEGW2",
+      "fqdn": "SEGW2.scapysec2.io",
+      "group": "",
+      "labdir": "/root/scapysec2/clab-scapysec2/SEGW2",
+      "kind": "vr-sros",
+      "image": "vrnetlab/vr-sros:23.3.R3",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.7",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::7",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-8f1d7a3d1a3a",
+        "clab-node-group": "",
+        "clab-node-kind": "vr-sros",
+        "clab-node-lab-dir": "/root/scapysec2/clab-scapysec2/SEGW2",
+        "clab-node-name": "SEGW2",
+        "clab-node-type": "sr-1e",
+        "clab-topo-file": "/root/scapysec2/scapysec_4.clab.yml",
+        "containerlab": "scapysec2"
+      }
+    },
+    "SEGW3": {
+      "index": "5",
+      "shortname": "SEGW3",
+      "longname": "clab-scapysec2-SEGW3",
+      "fqdn": "SEGW3.scapysec2.io",
+      "group": "",
+      "labdir": "/root/scapysec2/clab-scapysec2/SEGW3",
+      "kind": "vr-sros",
+      "image": "vrnetlab/vr-sros:23.3.R3",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.4",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "2001:172:20:20::4",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-8f1d7a3d1a3a",
+        "clab-node-group": "",
+        "clab-node-kind": "vr-sros",
+        "clab-node-lab-dir": "/root/scapysec2/clab-scapysec2/SEGW3",
+        "clab-node-name": "SEGW3",
+        "clab-node-type": "sr-1e",
+        "clab-topo-file": "/root/scapysec2/scapysec_4.clab.yml",
+        "containerlab": "scapysec2"
+      }
+    }
+  },
+  "links": [
+    {
+      "a": {
+        "node": "SEGW0",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:86:45:76",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DCGW",
+        "interface": "e1-2",
+        "mac": "aa:c1:ab:67:a6:e8",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SCPY",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:71:e2:31",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DCGW",
+        "interface": "e1-1",
+        "mac": "aa:c1:ab:7c:9e:9c",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SCPY",
+        "interface": "eth2",
+        "mac": "aa:c1:ab:75:49:21",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SEGW1",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:d2:0a:c9",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SCPY",
+        "interface": "eth3",
+        "mac": "aa:c1:ab:c3:ed:95",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SEGW2",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:d1:cd:1e",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SCPY",
+        "interface": "eth4",
+        "mac": "aa:c1:ab:c3:74:cc",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SEGW3",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:00:8d:7a",
+        "peer": "a"
+      }
+    }
+  ]
+}

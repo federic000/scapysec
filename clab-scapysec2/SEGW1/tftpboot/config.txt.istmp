@@ -1,0 +1,413 @@
+# TiMOS-C-23.3.R3 cpm/x86_64 Nokia 7750 SR Copyright (c) 2000-2023 Nokia.
+# All rights reserved. All use subject to applicable license agreements.
+# Built on Wed May 31 12:09:13 PDT 2023 by builder in /builds/233B/R3/panos/main/sros
+# Configuration format version 23.3 revision 0
+
+# Generated 2023-06-08T09:05:33.7Z by system from Console
+# Commit ID 13
+#   Committed 2023-06-08T09:05:33.6Z by admin (MD-CLI) from 200::
+
+configure {
+    card 1 {
+        card-type iom-e
+        mda 1 {
+            mda-type me40-1gb-csfp
+        }
+        mda 2 {
+            mda-type isa2-tunnel
+        }
+    }
+    ipsec {
+        ike-policy 1 {
+            ike-transform [1]
+            ike-version-2 {
+            }
+        }
+        ike-transform 1 {
+            dh-group group-14
+            ike-encryption-algorithm aes-256
+            isakmp-lifetime 86500
+        }
+        ipsec-transform 1 {
+            esp-auth-algorithm auth-encryption
+            esp-encryption-algorithm aes128-gcm8
+            ipsec-lifetime 1200
+        }
+        tunnel-template 1 {
+            sp-reverse-route use-security-policy
+            ipsec-transform [1]
+        }
+    }
+    isa {
+        tunnel-group 1 {
+            admin-state enable
+            isa-scale-mode tunnel-limit-2k
+            primary 1/2
+        }
+    }
+    log {
+        filter "1001" {
+            named-entry "10" {
+                description "Collect only events of major severity or higher"
+                action forward
+                match {
+                    severity {
+                        gte major
+                    }
+                }
+            }
+        }
+        log-id "100" {
+            description "Default Serious Errors Log"
+            filter "1001"
+            source {
+                main true
+            }
+            destination {
+                memory {
+                    max-entries 500
+                }
+            }
+        }
+        log-id "99" {
+            description "Default System Log"
+            source {
+                main true
+            }
+            destination {
+                memory {
+                    max-entries 500
+                }
+            }
+        }
+    }
+    port 1/1/1 {
+        admin-state enable
+        ethernet {
+            mode access
+        }
+    }
+    router "Base" {
+        static-routes {
+            route 10.100.0.0/16 route-type unicast {
+                next-hop "10.3.3.3" {
+                    admin-state enable
+                }
+            }
+        }
+    }
+    service {
+        ies "100" {
+            admin-state enable
+            customer "1"
+            interface "LAN1" {
+                sap 1/1/1 {
+                }
+                ipv4 {
+                    primary {
+                        address 10.3.3.254
+                        prefix-length 24
+                    }
+                }
+            }
+            interface "PUBLIC1" {
+                sap tunnel-1.public:100 {
+                    ipsec-gateway "IPSECGW1" {
+                        admin-state enable
+                        default-tunnel-template 1
+                        ike-policy 1
+                        pre-shared-key "uCLxzS3PxoW0foPjmAKJ/Wv41hy6O3H76tg= hash2"
+                        default-secure-service {
+                            service-name "200"
+                            interface "PRIVATE1"
+                        }
+                        local {
+                            gateway-address 10.2.2.1
+                        }
+                    }
+                }
+                ipv4 {
+                    primary {
+                        address 10.2.2.254
+                        prefix-length 24
+                    }
+                }
+            }
+        }
+        vprn "200" {
+            admin-state enable
+            description "private side tunnel client"
+            customer "1"
+            bgp-ipvpn {
+                mpls {
+                    admin-state enable
+                    route-distinguisher "65001:200"
+                }
+            }
+            interface "PACO1" {
+                loopback true
+                ipv4 {
+                    primary {
+                        address 201.0.0.1
+                        prefix-length 32
+                    }
+                }
+            }
+            interface "PRIVATE1" {
+                tunnel true
+                sap tunnel-1.private:100 {
+                }
+            }
+        }
+    }
+    system {
+        name "SEGW1"
+        security {
+            aaa {
+                local-profiles {
+                    profile "administrative" {
+                        default-action permit-all
+                        entry 10 {
+                            match "configure system security"
+                            action permit
+                        }
+                        entry 20 {
+                            match "show system security"
+                            action permit
+                        }
+                        entry 30 {
+                            match "tools perform security"
+                            action permit
+                        }
+                        entry 40 {
+                            match "tools dump security"
+                            action permit
+                        }
+                        entry 50 {
+                            match "admin system security"
+                            action permit
+                        }
+                        entry 100 {
+                            match "configure li"
+                            action deny
+                        }
+                        entry 110 {
+                            match "show li"
+                            action deny
+                        }
+                        entry 111 {
+                            match "clear li"
+                            action deny
+                        }
+                        entry 112 {
+                            match "tools dump li"
+                            action deny
+                        }
+                        netconf {
+                            base-op-authorization {
+                                action true
+                                cancel-commit true
+                                close-session true
+                                commit true
+                                copy-config true
+                                create-subscription true
+                                delete-config true
+                                discard-changes true
+                                edit-config true
+                                get true
+                                get-config true
+                                get-data true
+                                get-schema true
+                                kill-session true
+                                lock true
+                                validate true
+                            }
+                        }
+                    }
+                    profile "default" {
+                        entry 10 {
+                            match "exec"
+                            action permit
+                        }
+                        entry 20 {
+                            match "exit"
+                            action permit
+                        }
+                        entry 30 {
+                            match "help"
+                            action permit
+                        }
+                        entry 40 {
+                            match "logout"
+                            action permit
+                        }
+                        entry 50 {
+                            match "password"
+                            action permit
+                        }
+                        entry 60 {
+                            match "show config"
+                            action deny
+                        }
+                        entry 65 {
+                            match "show li"
+                            action deny
+                        }
+                        entry 66 {
+                            match "clear li"
+                            action deny
+                        }
+                        entry 67 {
+                            match "tools dump li"
+                            action deny
+                        }
+                        entry 68 {
+                            match "state li"
+                            action deny
+                        }
+                        entry 70 {
+                            match "show"
+                            action permit
+                        }
+                        entry 75 {
+                            match "state"
+                            action permit
+                        }
+                        entry 80 {
+                            match "enable-admin"
+                            action permit
+                        }
+                        entry 90 {
+                            match "enable"
+                            action permit
+                        }
+                        entry 100 {
+                            match "configure li"
+                            action deny
+                        }
+                    }
+                }
+            }
+            ssh {
+                server-cipher-list-v2 {
+                    cipher 190 {
+                        name aes256-ctr
+                    }
+                    cipher 192 {
+                        name aes192-ctr
+                    }
+                    cipher 194 {
+                        name aes128-ctr
+                    }
+                    cipher 200 {
+                        name aes128-cbc
+                    }
+                    cipher 205 {
+                        name 3des-cbc
+                    }
+                    cipher 225 {
+                        name aes192-cbc
+                    }
+                    cipher 230 {
+                        name aes256-cbc
+                    }
+                }
+                client-cipher-list-v2 {
+                    cipher 190 {
+                        name aes256-ctr
+                    }
+                    cipher 192 {
+                        name aes192-ctr
+                    }
+                    cipher 194 {
+                        name aes128-ctr
+                    }
+                    cipher 200 {
+                        name aes128-cbc
+                    }
+                    cipher 205 {
+                        name 3des-cbc
+                    }
+                    cipher 225 {
+                        name aes192-cbc
+                    }
+                    cipher 230 {
+                        name aes256-cbc
+                    }
+                }
+                server-mac-list-v2 {
+                    mac 200 {
+                        name hmac-sha2-512
+                    }
+                    mac 210 {
+                        name hmac-sha2-256
+                    }
+                    mac 215 {
+                        name hmac-sha1
+                    }
+                    mac 220 {
+                        name hmac-sha1-96
+                    }
+                    mac 225 {
+                        name hmac-md5
+                    }
+                    mac 240 {
+                        name hmac-md5-96
+                    }
+                }
+                client-mac-list-v2 {
+                    mac 200 {
+                        name hmac-sha2-512
+                    }
+                    mac 210 {
+                        name hmac-sha2-256
+                    }
+                    mac 215 {
+                        name hmac-sha1
+                    }
+                    mac 220 {
+                        name hmac-sha1-96
+                    }
+                    mac 225 {
+                        name hmac-md5
+                    }
+                    mac 240 {
+                        name hmac-md5-96
+                    }
+                }
+            }
+            user-params {
+                local-user {
+                    user "admin" {
+                        password "$2y$10$TQrZlpBDra86.qoexZUzQeBXDY1FcdDhGWdD9lLxMuFyPVSm0OGy6"
+                        access {
+                            console true
+                        }
+                        console {
+                            member ["administrative"]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+persistent-indices {
+    description "Persistent indices are maintained by the system and must not be modified."
+    vrtr-id {
+        router-name "200" vrtr-id 3
+    }
+    vrtr-if-id {
+        router-name "100" interface-name "LAN1" vrtr-id 1 if-index 4
+        router-name "100" interface-name "PUBLIC1" vrtr-id 1 if-index 2
+        router-name "200" interface-name "PACO1" vrtr-id 3 if-index 5
+        router-name "200" interface-name "PRIVATE1" vrtr-id 3 if-index 3
+    }
+    chassis-mac {
+        client ipsec index 0 pool 1 offset 713
+        client ipsec index 1 pool 1 offset 714
+    }
+}
+
+# Finished 2023-06-08T09:05:34.3Z

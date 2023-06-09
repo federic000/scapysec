@@ -1,0 +1,20 @@
+all:
+  children:
+    linux:
+      hosts:
+        clab-scapysec2-SCPY:
+          ansible_host: 172.20.20.3
+    srl:
+      hosts:
+        clab-scapysec2-DCGW:
+          ansible_host: 172.20.20.2
+    vr-sros:
+      hosts:
+        clab-scapysec2-SEGW0:
+          ansible_host: 172.20.20.5
+        clab-scapysec2-SEGW1:
+          ansible_host: 172.20.20.6
+        clab-scapysec2-SEGW2:
+          ansible_host: 172.20.20.7
+        clab-scapysec2-SEGW3:
+          ansible_host: 172.20.20.4
